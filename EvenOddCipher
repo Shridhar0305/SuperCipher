@@ -1,0 +1,85 @@
+//Name: Shridhar Vashishtha
+//Project 2
+public class EvenOddCipher extends BaseCipher{
+    public EvenOddCipher(){
+        super("EvenOddCipher");
+    }
+    /**
+     * this encrypts the old string to a new string
+     * @param oldString is the string to be encrypted
+     * @return is the new encrypted string
+     */
+    @Override
+    public String encrypt(String oldString) {
+        String newString = "";
+        int oldLength = oldString.length();
+        for (int i = 0; i < oldLength; i++) {
+            if (i % 2 == 0) {
+                newString += oldString.charAt(i);
+            }
+        }
+        for (int j = 0; j < oldLength; j++) {
+            if (j % 2 != 0) {
+                newString += oldString.charAt(j);
+            }
+        }
+
+        return newString;
+    }
+
+    /**
+     * this decrypts the string back to its original form
+     * @param newString2 is the encrypted string
+     * @return is the decrypted string
+     */
+    @Override
+    public String decrypt(String newString2) {
+        int newLength = newString2.length();
+        int evenToOdd = newLength / 2;
+        String oldString2 = "";
+        if (newLength % 2 != 0) {
+            for (int i = 0; i < evenToOdd; i++) {
+                oldString2 += newString2.charAt(i);
+                oldString2 += newString2.charAt(evenToOdd + 1 + i);  //this is the problem
+            }
+            oldString2 += newString2.charAt(evenToOdd);
+        } else if (newLength % 2 == 0) {
+            for (int i = 0; i < evenToOdd; i++) {
+                oldString2 += newString2.charAt(i);
+                oldString2 += newString2.charAt(evenToOdd + i);
+            }
+
+        }
+        return oldString2;
+    }
+
+    /**
+     * this gives the name of the cipher
+     * @return is the string of the name
+     */
+    public String toString () {
+        return super.toString();
+    }
+
+    /**
+     * this is the overridden equals method
+     * @param o is any object
+     * @return is the boolean checking if the two objects are equal or not
+     */
+    @Override
+    public boolean equals (Object o){
+        if(this == o){
+            return true;
+        }
+        else if(o == null){
+            return false;
+        }
+        else if(o instanceof EvenOddCipher){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+}
