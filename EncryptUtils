@@ -1,0 +1,33 @@
+//Name: Shridhar Vashishtha
+//Project 2, CSCI fall 2022
+public class EncryptUtils {
+
+    /**
+     * this method encrypts an array of words using any of the encryption types
+     * @param o is the basecipher object, it can be any of the encryption types
+     * @param words is the array of words to be encrypted
+     * @return is the new array of encrypted words
+     */
+    public static String[] encryptMany(BaseCipher o, String[] words){
+        String[] ans = new String[words.length];
+
+            for(int i = 0; i < words.length; i++){
+                ans[i] = o.encrypt(words[i]);
+            }
+        return ans;
+    }
+    /**
+     * this method decrypts an array of words using any of the encryption types
+     * @param o is the basecipher object, it can be any of the encryption types
+     * @param words is the array of words to be decrypted
+     * @return is the new array of decrypted words
+     */
+    public static String[] decryptMany(BaseCipher o, String[] words){
+        String[] ans = new String[words.length];
+            for(int i = 0; i < words.length; i++){
+                ans[i] = o.decrypt(words[i]);
+            }
+        return ans;
+    }
+
+}
