@@ -1,0 +1,71 @@
+//Name: Shridhar Vashishtha
+//Project 2
+public class WordReplacementCipher extends BaseCipher{
+    private String oldWord;
+    private String newWord;
+
+    /**
+     * constructor
+     * @param oldWord is the word to be replaced
+     * @param newWord is the new word
+     */
+    public WordReplacementCipher(String oldWord, String newWord){
+        super("WordReplacementCipher(" + oldWord + ", " + newWord + ")");
+        this.oldWord = oldWord;
+        this.newWord = newWord;
+    }
+
+    /**
+     * this encrypts the old string to a new one
+     * @param humanEnglish is the old string
+     * @return is the new excrypted string
+     */
+    @Override
+    public String encrypt(String humanEnglish){
+        String alienEnglish = humanEnglish.replace(oldWord, newWord);
+        return alienEnglish;
+    }
+
+    /**
+     * this decrypts the string back to its original form
+     * @param alienEnglish2 is the encrypted string to be decrypted
+     * @return is the decrypted string
+     */
+    @Override
+    public String decrypt(String alienEnglish2){
+        String humanEnglish2 = alienEnglish2.replace(newWord, oldWord);
+        return humanEnglish2;
+    }
+
+    /**
+     * this returns the name of the cipher
+     * @return is the string with the name of the cipher
+     */
+    public String toString(){
+        return super.toString();
+    }
+
+    /**
+     * this is the overridden equals method
+     * @param o is the othr object
+     * @return boolean true if the objects are equal, otherwise false
+     */
+    @Override
+    public boolean equals(Object o){
+        if(this == o){
+            return true;
+        }
+        else if(o == null){
+            return false;
+        }
+        else if(o instanceof WordReplacementCipher){
+            WordReplacementCipher lr = (WordReplacementCipher) o;
+            return this.oldWord.equals(lr.oldWord) && this.newWord.equals(lr.newWord);
+        }
+        else{
+            return false;
+        }
+    }
+
+
+}
