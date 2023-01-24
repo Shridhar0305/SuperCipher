@@ -1,0 +1,138 @@
+// Name: Shridhar Vashishtha
+// project 2, csci fall 2022
+public class CaesarCipher extends BaseCipher {
+    private int key;
+
+    /**
+     * rotates the character by a given number
+     * @param first is the character
+     * @param value is the int value by which you are rotating the character
+     * @return new character after rotating by a given value.
+     */
+    private char rotate(char first, int value) {
+        int i = (int) (first - 'a');
+        int realValue = value + i;
+        char ans = 'a';    // initial char for initializing
+        if (realValue >= 0 && realValue <= 25) {
+            ans = (char) (realValue + 'a');
+        }
+        else if (realValue > 25) {
+            int newValue = realValue - 26;
+            ans = (char) (newValue + 'a');
+        }
+        else if (realValue < 0){
+            int newValue = realValue + 26;
+            ans = (char) (newValue + 'a');
+        }
+        return ans;
+    }
+
+    /**
+     * constructor
+     * @param key
+     */
+    public CaesarCipher(int key) {
+        super("Caesar(" + key + ")");   // how does it actually work???
+        this.key = key;
+    }
+
+    /**
+     * set the new value of key
+     * @param newKey is the new Key
+     */
+    public void setKey(int newKey){
+        this.key = newKey;}
+
+    /**
+     * checks if the key is valid
+     * @return true or false according to the situation
+     */
+    @Override
+    public boolean isValid() {
+        if (key < 1 || key > 25) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * encrypt the initial string
+     * @param initial is the initial unencrypted string
+     * @return the encrypted message
+     */
+    @Override
+    public String encrypt(String initial) {
+        String ans = "";
+        if (isValid() == true) {
+            initial = initial.toLowerCase();
+            String alpha = "abcdefghijklmnopqrstuvwxyz";
+            int len = initial.length();
+            for (int i = 0; i < len; i++) {
+                if (alpha.contains(Character.toString(initial.charAt(i)))) {
+                    ans += rotate(initial.charAt(i), key);
+                }
+                else {
+                    ans += initial.charAt(i);
+                }
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * decrypt the given message
+     * @param initial is the encrypted message
+     * @return the decrypted message
+     */
+    @Override
+    public String decrypt(String initial){
+        String ans = "";
+        int newValue = key * (-1);
+        if (isValid() == true) {
+            initial = initial.toLowerCase();
+            String alpha = "abcdefghijklmnopqrstuvwxyz";
+            int len = initial.length();
+            for (int i = 0; i < len; i++) {
+                if (alpha.contains(Character.toString(initial.charAt(i)))) {
+                    ans += rotate(initial.charAt(i), newValue);
+                }
+                else {
+                    ans += initial.charAt(i);
+                }
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * gives the caesar key in the format
+     * @return string in the format
+     */
+    public String toString(){
+        return super.toString();
+    }
+
+    /**
+     * this the equals method
+     * @param o is the other object
+     * @return true if the rotation amounts are the same otherwise return false
+     */
+    @Override
+    public boolean equals(Object o){
+        if (this == o) {
+            return true;
+        } else if (o == null) {
+            return false;
+        } else if (o instanceof CaesarCipher) {
+            CaesarCipher lr = (CaesarCipher) o;
+            return this.key == lr.key;
+        } else {
+            return false;
+        }
+    }
+}
+
+
+
+
