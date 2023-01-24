@@ -1,0 +1,98 @@
+//Name:Shridhar Vashishtha
+//CSCI fall 2022, project 2
+import java.util.Arrays;
+public class SuperCipher extends BaseCipher {
+    private BaseCipher[] list;
+
+    /**
+     * this is the constructor
+     * @param list is the array of baseciphers
+     */
+    public SuperCipher(BaseCipher[] list) {
+        super("SuperCipher");
+        this.list = list;
+    }
+
+    /**
+     * this checks if the array is valid or not. It is valid if each of the ciphers in it is valid
+     * @return boolean true if valid, otherwise false
+     */
+    public boolean isValid() {
+        boolean ans = false;
+        for (int i = 0; i < list.length; i++) {
+            if (list[i].isValid()) {
+                ans = true;
+
+            } else {
+                return false;
+            }
+        }
+        return ans;
+    }
+
+    /**
+     * this encrypts tne string according to the cipher
+     * @param initial is the initial string to be encrypted
+     * @return is the encrypted string
+     */
+    public String encrypt(String initial) {
+        String ans = initial;
+        for (int i = 0; i < list.length; i++) {
+                ans = list[i].encrypt(ans);
+        }
+        return ans;
+
+    }
+
+    /**
+     * this decrypts the string given
+     * @param initial is the given encrypted string
+     * @return is the decrypted string
+     */
+    public String decrypt(String initial) {
+        String ans = initial;
+        for (int i = list.length - 1; i >= 0; i--) {
+            ans = list[i].decrypt(ans);
+        }
+        return ans;
+
+    }
+
+    /**
+     * this returns a string giving the ciphers in the supercipher
+     * @return is the string of the supercipher
+     */
+    public String toString() {
+        String ans = "SuperCipher(";
+
+            for(int i = 0; i < list.length; i++) {
+                if(i != list.length - 1){
+                    ans += list[i].toString() + " | ";
+                }
+                else{
+                    ans += list[i].toString() + ")";
+                }
+            }
+             return ans;
+     }
+
+    /**
+     * this is the overidden equals method
+     * @param o is the other object
+     * @return true if the objects are same, otherwise false
+     */
+    @Override
+     public boolean equals(Object o) {
+         if (this == o) {
+             return true;
+         } else if (o == null) {
+             return false;
+         } else if (o instanceof SuperCipher) {
+             SuperCipher lr = (SuperCipher) o;
+             return this.list.length == lr.list.length && Arrays.equals(this.list, lr.list);
+         } else {
+             return false;
+         }
+
+     }
+}
